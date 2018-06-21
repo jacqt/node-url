@@ -116,8 +116,9 @@ Url.prototype.parse = function(url, parseQueryString, slashesDenoteHost) {
   // Back slashes before the query string get converted to forward slashes
   // See: https://code.google.com/p/chromium/issues/detail?id=25916
   var queryIndex = url.indexOf('?'),
+    hashIndex = url.indexOf('#'),
       splitter =
-          (queryIndex !== -1 && queryIndex < url.indexOf('#')) ? '?' : '#',
+          (queryIndex !== -1 && (hashIndex === -1 || queryIndex < hashIndex)) ? '?' : '#',
       uSplit = url.split(splitter),
       slashRegex = /\\/g;
   uSplit[0] = uSplit[0].replace(slashRegex, '/');
